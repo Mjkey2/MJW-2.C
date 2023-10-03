@@ -1,69 +1,73 @@
-'Build the program!
-' 1. Create ingredients
-' 2. Create iteration loop/loop through each Row
-    '2.a  does VBA already know how to loop through the rows? Do i need to establish rows too?
-        '2.aa repeat the loop 753001 times as per the worksheet length
-' 3. Create calculator
-    ' 3.a calculate yearly change
-    ' 3.b calculate percent change
-    ' 3.c calculate Total Stock Volume
-' 4. Create the results table
-    '3.a Color the yearly change to be ABOVE ZERO = GREEN
-
-        
 'Create entire loop
 Sub Stock_data()
-
-'Loop through all sheets
-For Each ws In Worksheets
 ' STEP 1: Make different variables for the Data Math
-    'learn to set up EACH VARIABLE AS ITS OWN.
     Dim Ticker As String
-    Dim Year_Change As Integer
-        Dim Year_Start As Integer
-        Dim Year_End As Integer
+    Dim Year_Change As Double
+        Dim Year_Start As Double
+        Dim Year_End As Double
     Dim Percent_Change As Double
-        Dim Percent_High As Double
-        Dim Percent_Low As Double
     Dim Stock_Volume As Long
-        variables = 0
-    'Find the last row
-    lastrow = Cells(Rows.Count, 1).End(x1Up).Row
-
-' STEP 2: Make the loop
-    For i = 2 To lastrow
-    For j = 1 To 7
-    
-    'Check Stock Data procedurally
-    ' If Ticker is same, Then Record Year Data, Then Calculate Percent Change, Then Calculate Stock Volume
-        'Ticker name
-        Ticker = Cells(i, 1)
-        If Ticker = Ticker Or Ticker = Cells(i + 1, 1) Then
-        Range("I2").Value = Ticker
+        Dim Stock_Variable As Double
+        Dim Volume_Column As Range
+        Stock_Volume = 0
+    'Loop through all sheets
+    For Each ws In Worksheets
+    summary_index = 2
+    open_index = 2
+    Stock_Variable = 0
+    ' STEP 2: Make the loop
+        'determine last row
+        LastRow = ws.Cells(Rows.Count, 1).End(xlUp).Row
+        For i = 2 To LastRow
+      'Check Stock Data procedurally
+      'If Ticker is same, Then Record Year Data, Then Calculate Percent Change, Then Calculate Stock Volume
+            
+            Stock_Variable = Stock_Variable + Cells(i, 7).Value
+            
+            'Ticker name
+            Ticker = Cells(i, 1).Value
+            If Ticker <> Cells(i + 1, 1) Then
+                'Ticker i + 1 is labeled
+                Cells(summary_index, 9).Value = Ticker
         
-            'Year Change
-            Year_Start = Cells(i, 3)
-            Year_End = Cells(i, 6)
-            Year_Change = Year_End - Year_Start
-            ' color cell green
-            If Yearly_Change is >= "0" Then
-            Range("J2").Interior.ColorIndex = 4
-            ' color cell red
-            Elseif  Yearly_Change is <= "0"
-            Range("J2").Interior.ColorIndex = 3 Then
-    
+                'Year Change
+                Year_Start = Cells(open_index, 3).Value
+                Year_End = Cells(i, 6).Value
+                Year_Change = Year_End - Year_Start
+                'apply year value to cell.value
+                Range("J" & summary_index).Value = Year_Change
+                ' color cell green
+                If Year_Change > 0 Then
+                    Range("J" & summary_index).Interior.ColorIndex = 4
+                    ' else, color cell red
+                    Else
+                    Range("J" & summary_index).Interior.ColorIndex = 3
+                End If
+            
                 'Percent Change
-                Calculate Year_End - Year_Start/Year_Start Then
-                RANGE("i, 11).NumberFormat = "0.00%"
-
-                'Stock Volume
-                Stock_Volume = Cells(i, 7).
-        End If        
-
-    
-    
-    
-' STEP 2: Create loop
-    For i = 1 To 753001
-        
+                'fix percent change!! Check
+                Percent_Change = Year_Change / Year_Start
+                'apply percent value to cell.value
+                Range("K" & summary_index).Value = Percent_Change
+                'format percentage value
+                Range("K" & summary_index).NumberFormat = "0.00%"
+            
+                'Put Stock_Variable into column K
+                Cells(summary_index, 12).Value = Stock_Variable
+                
+                'Reset Stock_Variable to 0
+                Stock_Variable = 0
+                
+                'Increase summary_index by 1 (one line)
+                summary_index = summary_index + 1
+                
+                'Update open_index to the start of the next ticker
+                 open_index = i + 1
+            End If
+            
+            
+        Next i
+    Next ws
 End Sub
+
+
