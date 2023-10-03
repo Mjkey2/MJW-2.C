@@ -1,0 +1,69 @@
+'Build the program!
+' 1. Create ingredients
+' 2. Create iteration loop/loop through each Row
+    '2.a  does VBA already know how to loop through the rows? Do i need to establish rows too?
+        '2.aa repeat the loop 753001 times as per the worksheet length
+' 3. Create calculator
+    ' 3.a calculate yearly change
+    ' 3.b calculate percent change
+    ' 3.c calculate Total Stock Volume
+' 4. Create the results table
+    '3.a Color the yearly change to be ABOVE ZERO = GREEN
+
+        
+'Create entire loop
+Sub Stock_data()
+
+'Loop through all sheets
+For Each ws In Worksheets
+' STEP 1: Make different variables for the Data Math
+    'learn to set up EACH VARIABLE AS ITS OWN.
+    Dim Ticker As String
+    Dim Year_Change As Integer
+        Dim Year_Start As Integer
+        Dim Year_End As Integer
+    Dim Percent_Change As Double
+        Dim Percent_High As Double
+        Dim Percent_Low As Double
+    Dim Stock_Volume As Long
+        variables = 0
+    'Find the last row
+    lastrow = Cells(Rows.Count, 1).End(x1Up).Row
+
+' STEP 2: Make the loop
+    For i = 2 To lastrow
+    For j = 1 To 7
+    
+    'Check Stock Data procedurally
+    ' If Ticker is same, Then Record Year Data, Then Calculate Percent Change, Then Calculate Stock Volume
+        'Ticker name
+        Ticker = Cells(i, 1)
+        If Ticker = Ticker Or Ticker = Cells(i + 1, 1) Then
+        Range("I2").Value = Ticker
+        
+            'Year Change
+            Year_Start = Cells(i, 3)
+            Year_End = Cells(i, 6)
+            Year_Change = Year_End - Year_Start
+            ' color cell green
+            If Yearly_Change is >= "0" Then
+            Range("J2").Interior.ColorIndex = 4
+            ' color cell red
+            Elseif  Yearly_Change is <= "0"
+            Range("J2").Interior.ColorIndex = 3 Then
+    
+                'Percent Change
+                Calculate Year_End - Year_Start/Year_Start Then
+                RANGE("i, 11).NumberFormat = "0.00%"
+
+                'Stock Volume
+                Stock_Volume = Cells(i, 7).
+        End If        
+
+    
+    
+    
+' STEP 2: Create loop
+    For i = 1 To 753001
+        
+End Sub
