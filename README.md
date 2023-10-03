@@ -1,5 +1,5 @@
 # MJW-2.C
-Mj week 2 challence
+Mj week 2 challenge
 Apparently, I'm tasked with putting any vba files I use into the repsitory. Alright less go
 
 It wants me to make a loop script through all of the stocks for one year and outputs the information following:
